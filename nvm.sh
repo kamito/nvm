@@ -44,7 +44,7 @@ nvm_ls()
     if [[ "$PATTERN" == v?*.?*.?* ]]; then
         VERSIONS="$PATTERN"
     else
-        VERSIONS=`(cd $NVM_DIR; \ls -d v${PATTERN}* 2>/dev/null) | sort -t. -k 1.2,1n -k 2,2n -k 3,3n`
+        VERSIONS=`(cd $NVM_DIR; (\ls -d v${PATTERN}*) 2>/dev/null) | sort -t. -k 1.2,1n -k 2,2n -k 3,3n`
     fi
     if [ ! "$VERSIONS" ]; then
         echo "N/A"
@@ -244,7 +244,7 @@ nvm()
     "alias" )
       mkdir -p $NVM_DIR/alias
       if [ $# -le 2 ]; then
-        (cd $NVM_DIR/alias && for ALIAS in `\ls $2* 2>/dev/null`; do
+        (cd $NVM_DIR/alias && for ALIAS in `(\ls $2*) 2>/dev/null`; do
             DEST=`cat $ALIAS`
             VERSION=`nvm_version $DEST`
             if [ "$DEST" = "$VERSION" ]; then
